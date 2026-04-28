@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RoomVerse AI – Try Before You Buy</title>
+
+  <!-- Google Fonts: Clash Display + DM Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Model Viewer for AR/3D -->
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <span class="logo-icon">⬡</span>
+        <span>RoomVerse</span>
+        <span class="logo-badge">AI</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#catalog">Catalog</a></li>
+        <li><a href="#ar-viewer">AR View</a></li>
+        <li><a href="#ai-recommend">AI Style</a></li>
+        <li><a href="#budget">Budget</a></li>
+      </ul>
+      <!-- Cart icon with badge -->
+      <button class="cart-btn" onclick="toggleBudgetPanel()">
+        <span class="cart-icon">🛋️</span>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       SECTION 1: HERO / LANDING
+  ============================================================ -->
+  <section id="hero">
+    <!-- Animated background particles -->
+    <div class="hero-bg">
+      <div class="particle p1"></div>
+      <div class="particle p2"></div>
+      <div class="particle p3"></div>
+      <div class="grid-overlay"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="pulse-dot"></span>
+        AR-Powered Interior Design
+      </div>
+
+      <h1 class="hero-title">
+        See it in your space<br />
+        <span class="hero-accent">before you buy.</span>
+      </h1>
+
+      <p class="hero-sub">
+        Point your camera at any room. Place furniture instantly.<br />
+        Powered by AI style recommendations & real-time AR.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#catalog" class="btn-primary">
+          <span>Explore Catalog</span>
+          <span class="btn-arrow">→</span>
+        </a>
+        <a href="#ar-viewer" class="btn-ghost">
+          <span class="btn-ar-icon">◉</span> Launch AR
+        </a>
+      </div>
+
+      <!-- Stats row -->
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num">500+</span>
+          <span class="stat-label">Furniture pieces</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">AR</span>
+          <span class="stat-label">No app needed</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">AI</span>
+          <span class="stat-label">Style matching</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero 3D preview card -->
+    <div class="hero-card-wrap">
+      <div class="hero-card">
+        <div class="hero-card-badge">LIVE AR PREVIEW</div>
+        <div class="hero-card-viewer">
+          <!-- Floating furniture preview using model-viewer -->
+          <model-viewer
+            src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+            alt="3D furniture preview"
+            auto-rotate
+            camera-controls
+            shadow-intensity="1"
+            style="width:100%;height:260px;background:transparent;"
+          ></model-viewer>
+        </div>
+        <div class="hero-card-label">
+          <span class="dot-green"></span>
+          AR Ready — Tap to place
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2: AI RECOMMENDATION BANNER
+  ============================================================ -->
+  <section id="ai-recommend">
+    <div class="ai-banner">
+      <div class="ai-banner-glow"></div>
+      <div class="ai-banner-inner">
+        <div class="ai-icon-wrap">
+          <span class="ai-spark">✦</span>
+        </div>
+        <div class="ai-text">
+          <p class="ai-label">AI Style Advisor</p>
+          <p class="ai-output" id="aiOutput">
+            Analyzing your room style... scanning preferences...
+          </p>
+        </div>
+        <button class="ai-btn" onclick="runAIRecommendation()">
+          Get Recommendations ✦
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3: PRODUCT CATALOG
+  ============================================================ -->
+  <section id="catalog">
+    <div class="section-header">
+      <p class="section-eyebrow">Curated Collection</p>
+      <h2 class="section-title">Featured Pieces</h2>
+      <p class="section-sub">Tap any item to preview it in AR in your actual room.</p>
+    </div>
+
+    <!-- Filter tabs -->
+    <div class="filter-tabs" id="filterTabs">
+      <button class="tab active" data-filter="all" onclick="filterCatalog('all', this)">All</button>
+      <button class="tab" data-filter="sofa" onclick="filterCatalog('sofa', this)">Sofas</button>
+      <button class="tab" data-filter="table" onclick="filterCatalog('table', this)">Tables</button>
+      <button class="tab" data-filter="lamp" onclick="filterCatalog('lamp', this)">Lamps</button>
+      <button class="tab" data-filter="plant" onclick="filterCatalog('plant', this)">Plants</button>
+      <button class="tab" data-filter="decor" onclick="filterCatalog('decor', this)">Decor</button>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="product-grid" id="productGrid">
+      <!-- Populated by JavaScript -->
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4: AR VIEWER
+  ============================================================ -->
+  <section id="ar-viewer">
+    <div class="section-header">
+      <p class="section-eyebrow">Augmented Reality</p>
+      <h2 class="section-title">Place in Your Room</h2>
+      <p class="section-sub">Select a product and launch the AR viewer. Works directly in your browser.</p>
+    </div>
+
+    <div class="ar-container">
+      <!-- AR Viewer Panel -->
+      <div class="ar-viewer-wrap" id="arViewerWrap">
+        <div class="ar-placeholder" id="arPlaceholder">
+          <div class="ar-placeholder-icon">◉</div>
+          <p>Select a product from the catalog to view it here</p>
+          <p class="ar-tip">Then tap "Launch AR" to place it in your room</p>
+        </div>
+
+        <!-- Model Viewer (hidden until product selected) -->
+        <div id="arModelWrap" style="display:none; position:relative;">
+          <model-viewer
+            id="mainModelViewer"
+            alt="Furniture AR view"
+            ar
+            ar-modes="webxr scene-viewer quick-look"
+            camera-controls
+            shadow-intensity="1.5"
+            shadow-softness="1"
+            auto-rotate
+            style="width:100%;height:480px;background:linear-gradient(135deg,#0f0f14,#1a1a28);"
+          ></model-viewer>
+
+          <!-- AR controls overlay -->
+          <div class="ar-controls">
+            <button class="ar-ctrl-btn" onclick="rotateModel(-30)" title="Rotate Left">↺</button>
+            <button class="ar-ctrl-btn" onclick="scaleModel(0.9)" title="Scale Down">−</button>
+            <button class="ar-ctrl-btn ar-launch" onclick="launchAR()" title="Launch AR">AR</button>
+            <button class="ar-ctrl-btn" onclick="scaleModel(1.1)" title="Scale Up">+</button>
+            <button class="ar-ctrl-btn" onclick="rotateModel(30)" title="Rotate Right">↻</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- AR info panel -->
+      <div class="ar-info-panel">
+        <div class="ar-selected-info" id="arSelectedInfo">
+          <p class="ar-no-selection">No item selected</p>
+        </div>
+
+        <!-- How it works steps -->
+        <div class="ar-steps">
+          <h4>How AR Works</h4>
+          <div class="step">
+            <span class="step-num">1</span>
+            <span>Pick a product from the catalog</span>
+          </div>
+          <div class="step">
+            <span class="step-num">2</span>
+            <span>Preview the 3D model here</span>
+          </div>
+          <div class="step">
+            <span class="step-num">3</span>
+            <span>Tap <strong>AR</strong> button to place in your room</span>
+          </div>
+          <div class="step">
+            <span class="step-num">4</span>
+            <span>Move your phone to position it</span>
+          </div>
+        </div>
+
+        <!-- AR compatibility notice -->
+        <div class="ar-compat">
+          <span class="compat-icon">📱</span>
+          <div>
+            <p><strong>Best on Mobile</strong></p>
+            <p>iOS 12+ (Safari) or Android (Chrome) for full AR experience</p>
+          </div>
+        </div>
+
+        <!-- Screenshot button -->
+        <button class="screenshot-btn" id="screenshotBtn" onclick="takeScreenshot()" style="display:none;">
+          📸 Capture Screenshot
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 5: BUDGET ESTIMATOR
+  ============================================================ -->
+  <section id="budget">
+    <div class="section-header">
+      <p class="section-eyebrow">Smart Budgeting</p>
+      <h2 class="section-title">Your Room Budget</h2>
+      <p class="section-sub">Build your dream room and track costs in real time.</p>
+    </div>
+
+    <div class="budget-layout">
+      <!-- Cart list -->
+      <div class="cart-panel">
+        <div class="cart-header">
+          <h3>Selected Items</h3>
+          <button onclick="clearCart()" class="clear-btn">Clear All</button>
+        </div>
+
+        <div id="cartItems" class="cart-items-list">
+          <div class="empty-cart">
+            <span>🛋️</span>
+            <p>No items added yet</p>
+            <p>Browse the catalog and add items to see your budget</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Budget summary -->
+      <div class="budget-summary">
+        <h3>Budget Summary</h3>
+
+        <!-- Budget slider -->
+        <div class="budget-slider-wrap">
+          <label>Set Your Budget</label>
+          <input type="range" id="budgetSlider" min="500" max="20000" step="100" value="5000"
+            oninput="updateBudgetDisplay()" class="budget-slider" />
+          <div class="budget-range-labels">
+            <span>₹500</span>
+            <span id="budgetSliderVal">₹5,000</span>
+            <span>₹20,000</span>
+          </div>
+        </div>
+
+        <div class="budget-meter">
+          <div class="meter-track">
+            <div class="meter-fill" id="meterFill"></div>
+          </div>
+          <div class="meter-labels">
+            <span>₹0</span>
+            <span id="meterMax">₹5,000</span>
+          </div>
+        </div>
+
+        <div class="budget-totals">
+          <div class="total-row">
+            <span>Subtotal</span>
+            <span id="subtotalVal">₹0</span>
+          </div>
+          <div class="total-row">
+            <span>GST (18%)</span>
+            <span id="taxVal">₹0</span>
+          </div>
+          <div class="total-row total-final">
+            <span>Total</span>
+            <span id="totalVal">₹0</span>
+          </div>
+          <div class="budget-status" id="budgetStatus"></div>
+        </div>
+
+        <button class="checkout-btn" onclick="handleCheckout()">
+          Proceed to Order ✦
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FLOATING BUDGET PANEL (mobile toggle)
+  ============================================================ -->
+  <div class="budget-float-panel" id="budgetFloatPanel" style="display:none;">
+    <div class="float-panel-header">
+      <h4>Cart <span id="floatCartCount">0</span> items</h4>
+      <button onclick="toggleBudgetPanel()">✕</button>
+    </div>
+    <div id="floatCartItems" class="float-cart-list"></div>
+    <div class="float-total">
+      Total: <strong id="floatTotal">₹0</strong>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       TOAST NOTIFICATION
+  ============================================================ -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="logo-icon">⬡</span>
+        <span class="footer-name">RoomVerse AI</span>
+      </div>
+      <p class="footer-tag">Try Before You Buy — Powered by AR + AI</p>
+      <p class="footer-note">Built for Hackathon Demo · © 2025 RoomVerse</p>
+    </div>
+  </footer>
+
+  <!-- Main JS -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
