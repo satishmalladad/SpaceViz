@@ -915,3 +915,66 @@ footer {
   .hero-stats { flex-wrap: wrap; }
   .product-grid { grid-template-columns: 1fr 1fr; }
 }
+/* 🔥 AI ACTIONS UPGRADE */
+.ai-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.ai-btn.ghost {
+  background: transparent;
+  border: 1px solid var(--border2);
+  color: var(--text);
+}
+
+.ai-btn.ghost:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* 🔥 HOVER GLOW FOR CARDS */
+.product-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.product-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(120deg,
+    transparent,
+    rgba(212,168,67,0.2),
+    transparent);
+  opacity: 0;
+  transition: 0.4s;
+}
+
+.product-card:hover::before {
+  opacity: 1;
+}
+
+/* 🔥 GOLD CURSOR EFFECT */
+body::after {
+  content: '';
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  pointer-events: none;
+  background: radial-gradient(circle,
+    rgba(212,168,67,0.15),
+    transparent 70%);
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+#aiRoomImage {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: all 0.6s ease;
+}
+
+#aiRoomImage.show {
+  opacity: 1;
+  transform: scale(1);
+}

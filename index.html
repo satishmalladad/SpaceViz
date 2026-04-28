@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +9,9 @@
   <!-- Google Fonts: Clash Display + DM Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Playfair+Display:wght@400;600;700&display=swap"
+    rel="stylesheet" />
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -19,6 +22,7 @@
   <!-- Custom styles -->
   <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
 
   <!-- ============================================================
@@ -38,6 +42,9 @@
         <li><a href="#budget">Budget</a></li>
       </ul>
       <!-- Cart icon with badge -->
+      <button class="cart-btn" onclick="startVoice()">
+        🎤
+      </button>
       <button class="cart-btn" onclick="toggleBudgetPanel()">
         <span class="cart-icon">🛋️</span>
         <span class="cart-count" id="cartCount">0</span>
@@ -108,14 +115,9 @@
         <div class="hero-card-badge">LIVE AR PREVIEW</div>
         <div class="hero-card-viewer">
           <!-- Floating furniture preview using model-viewer -->
-          <model-viewer
-            src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
-            alt="3D furniture preview"
-            auto-rotate
-            camera-controls
-            shadow-intensity="1"
-            style="width:100%;height:260px;background:transparent;"
-          ></model-viewer>
+          <model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" alt="3D furniture preview"
+            auto-rotate camera-controls shadow-intensity="1"
+            style="width:100%;height:260px;background:transparent;"></model-viewer>
         </div>
         <div class="hero-card-label">
           <span class="dot-green"></span>
@@ -135,25 +137,52 @@
        SECTION 2: AI RECOMMENDATION BANNER
   ============================================================ -->
   <section id="ai-recommend">
-    <div class="ai-banner">
-      <div class="ai-banner-glow"></div>
-      <div class="ai-banner-inner">
-        <div class="ai-icon-wrap">
-          <span class="ai-spark">✦</span>
-        </div>
-        <div class="ai-text">
-          <p class="ai-label">AI Style Advisor</p>
-          <p class="ai-output" id="aiOutput">
-            Analyzing your room style... scanning preferences...
-          </p>
-        </div>
-        <button class="ai-btn" onclick="runAIRecommendation()">
-          Get Recommendations ✦
+
+    <div class="ai-banner-inner">
+
+      <div class="ai-icon-wrap">
+        <span class="ai-spark">✦</span>
+      </div>
+
+      <div class="ai-text">
+        <p class="ai-label">AI Style Advisor</p>
+        <p class="ai-output" id="aiOutput">
+          Upload your room to get AI suggestions
+        </p>
+
+        <!-- 🔥 LOADER -->
+        <p id="aiLoader" style="display:none;color:#d4a843;margin-top:6px;">
+          ✨ Designing your room...
+        </p>
+      </div>
+
+      <div class="ai-actions">
+        <input type="file" id="roomImage" hidden>
+
+        <button class="ai-btn ghost" onclick="document.getElementById('roomImage').click()">
+          Upload Room
+        </button>
+
+        <button class="ai-btn" onclick="analyzeRoom()">
+          Analyze ✦
         </button>
       </div>
-    </div>
-  </section>
 
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- 🔥 AI GENERATED RESULT AREA -->
+    <!-- ===================================================== -->
+
+    <!-- AI GENERATED ROOM IMAGE -->
+    <div style="margin-top:20px;">
+      <img id="aiRoomImage" style="width:100%;border-radius:12px;display:none;">
+    </div>
+
+    <!-- AI PRODUCT SUGGESTIONS -->
+    <div id="aiProducts" style="margin-top:20px;display:grid;gap:10px;"></div>
+
+  </section>
   <!-- ============================================================
        SECTION 3: PRODUCT CATALOG
   ============================================================ -->
@@ -189,7 +218,8 @@
       <h2 class="section-title">Place in Your Room</h2>
       <p class="section-sub">Select a product and launch the AR viewer. Works directly in your browser.</p>
     </div>
-
+    <input id="roomWidth" placeholder="Enter room width (cm)"
+      style="margin-bottom:12px;padding:10px;border-radius:8px;border:none;">
     <div class="ar-container">
       <!-- AR Viewer Panel -->
       <div class="ar-viewer-wrap" id="arViewerWrap">
@@ -201,17 +231,9 @@
 
         <!-- Model Viewer (hidden until product selected) -->
         <div id="arModelWrap" style="display:none; position:relative;">
-          <model-viewer
-            id="mainModelViewer"
-            alt="Furniture AR view"
-            ar
-            ar-modes="webxr scene-viewer quick-look"
-            camera-controls
-            shadow-intensity="1.5"
-            shadow-softness="1"
-            auto-rotate
-            style="width:100%;height:480px;background:linear-gradient(135deg,#0f0f14,#1a1a28);"
-          ></model-viewer>
+          <model-viewer id="mainModelViewer" alt="Furniture AR view" ar ar-modes="webxr scene-viewer quick-look"
+            camera-controls shadow-intensity="1.5" shadow-softness="1" auto-rotate
+            style="width:100%;height:480px;background:linear-gradient(135deg,#0f0f14,#1a1a28);"></model-viewer>
 
           <!-- AR controls overlay -->
           <div class="ar-controls">
@@ -382,4 +404,5 @@
   <script src="js/app.js"></script>
 
 </body>
+
 </html>
