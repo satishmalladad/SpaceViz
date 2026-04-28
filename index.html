@@ -21,6 +21,9 @@
 
   <!-- Custom styles -->
   <link rel="stylesheet" href="css/style.css" />
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
+  </script>
 </head>
 
 <body>
@@ -218,74 +221,88 @@
       <h2 class="section-title">Place in Your Room</h2>
       <p class="section-sub">Select a product and launch the AR viewer. Works directly in your browser.</p>
     </div>
+
+    <!-- ROOM WIDTH INPUT -->
     <input id="roomWidth" placeholder="Enter room width (cm)"
       style="margin-bottom:12px;padding:10px;border-radius:8px;border:none;">
+
     <div class="ar-container">
-      <!-- AR Viewer Panel -->
+
+      <!-- ================= LEFT: VIEWER ================= -->
       <div class="ar-viewer-wrap" id="arViewerWrap">
+
+        <!-- PLACEHOLDER -->
         <div class="ar-placeholder" id="arPlaceholder">
           <div class="ar-placeholder-icon">◉</div>
           <p>Select a product from the catalog to view it here</p>
           <p class="ar-tip">Then tap "Launch AR" to place it in your room</p>
         </div>
 
-        <!-- Model Viewer (hidden until product selected) -->
+        <!-- ================= MODEL VIEWER ================= -->
         <div id="arModelWrap" style="display:none; position:relative;">
-          <model-viewer id="mainModelViewer" alt="Furniture AR view" ar ar-modes="webxr scene-viewer quick-look"
-            camera-controls shadow-intensity="1.5" shadow-softness="1" auto-rotate
-            style="width:100%;height:480px;background:linear-gradient(135deg,#0f0f14,#1a1a28);"></model-viewer>
 
-          <!-- AR controls overlay -->
-          <div class="ar-controls">
-            <button class="ar-ctrl-btn" onclick="rotateModel(-30)" title="Rotate Left">↺</button>
-            <button class="ar-ctrl-btn" onclick="scaleModel(0.9)" title="Scale Down">−</button>
-            <button class="ar-ctrl-btn ar-launch" onclick="launchAR()" title="Launch AR">AR</button>
-            <button class="ar-ctrl-btn" onclick="scaleModel(1.1)" title="Scale Up">+</button>
-            <button class="ar-ctrl-btn" onclick="rotateModel(30)" title="Rotate Right">↻</button>
+          <model-viewer id="mainModelViewer" src="" alt="3D Furniture AR view" ar
+            ar-modes="webxr scene-viewer quick-look" camera-controls auto-rotate shadow-intensity="1.5" exposure="1"
+            environment-image="neutral"
+            style="width:100%;height:480px;background:linear-gradient(135deg,#0f0f14,#1a1a28);">
+          </model-viewer>
+
+          <!-- 🔥 LOADING OVERLAY -->
+          <div id="modelLoader" style="
+          position:absolute;
+          inset:0;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          background:rgba(0,0,0,0.6);
+          color:#fff;
+          font-size:14px;
+          display:none;">
+            Loading 3D Model...
           </div>
+
+          <!-- 🔥 CONTROLS -->
+          <div class="ar-controls">
+            <button class="ar-ctrl-btn" onclick="rotateModel(-30)">↺</button>
+            <button class="ar-ctrl-btn" onclick="scaleModel(0.9)">−</button>
+            <button class="ar-ctrl-btn ar-launch" onclick="launchAR()">AR</button>
+            <button class="ar-ctrl-btn" onclick="scaleModel(1.1)">+</button>
+            <button class="ar-ctrl-btn" onclick="rotateModel(30)">↻</button>
+          </div>
+
         </div>
       </div>
 
-      <!-- AR info panel -->
+      <!-- ================= RIGHT: INFO ================= -->
       <div class="ar-info-panel">
+
         <div class="ar-selected-info" id="arSelectedInfo">
           <p class="ar-no-selection">No item selected</p>
         </div>
 
-        <!-- How it works steps -->
+        <!-- HOW IT WORKS -->
         <div class="ar-steps">
           <h4>How AR Works</h4>
-          <div class="step">
-            <span class="step-num">1</span>
-            <span>Pick a product from the catalog</span>
-          </div>
-          <div class="step">
-            <span class="step-num">2</span>
-            <span>Preview the 3D model here</span>
-          </div>
-          <div class="step">
-            <span class="step-num">3</span>
-            <span>Tap <strong>AR</strong> button to place in your room</span>
-          </div>
-          <div class="step">
-            <span class="step-num">4</span>
-            <span>Move your phone to position it</span>
-          </div>
+          <div class="step"><span class="step-num">1</span><span>Pick a product</span></div>
+          <div class="step"><span class="step-num">2</span><span>Preview 3D model</span></div>
+          <div class="step"><span class="step-num">3</span><span>Tap <strong>AR</strong></span></div>
+          <div class="step"><span class="step-num">4</span><span>Place in room</span></div>
         </div>
 
-        <!-- AR compatibility notice -->
+        <!-- COMPAT -->
         <div class="ar-compat">
           <span class="compat-icon">📱</span>
           <div>
             <p><strong>Best on Mobile</strong></p>
-            <p>iOS 12+ (Safari) or Android (Chrome) for full AR experience</p>
+            <p>Use Chrome (Android) or Safari (iOS)</p>
           </div>
         </div>
 
-        <!-- Screenshot button -->
+        <!-- SCREENSHOT -->
         <button class="screenshot-btn" id="screenshotBtn" onclick="takeScreenshot()" style="display:none;">
           📸 Capture Screenshot
         </button>
+
       </div>
     </div>
   </section>

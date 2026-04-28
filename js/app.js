@@ -163,9 +163,17 @@ function renderCatalog(list) {
 
         <div class="card-footer">
           <div class="card-price">₹${p.price}</div>
+
           <div class="card-actions">
-            <button class="btn-ar" onclick="viewInAR(${p.id})">AR</button>
-            <button class="btn-cart" onclick="addToCart(${p.id})">+</button>
+            <!-- 🔥 FIXED AR BUTTON -->
+            <button class="btn-ar" onclick="openAR(${p.id})">
+              AR
+            </button>
+
+            <!-- CART -->
+            <button class="btn-cart" onclick="addToCart(${p.id})">
+              +
+            </button>
           </div>
         </div>
       </div>
@@ -321,6 +329,20 @@ function showToast(msg, type = "") {
   }, 2500);
 }
 
+// ============================================================
+// 🔥 ADD BELOW THIS (AR CONTROLS)
+// ============================================================
+
+let currentScale = 1;
+
+function scaleModel(factor) {
+  const viewer = document.getElementById("mainModelViewer");
+
+  currentScale *= factor;
+
+  viewer.scale = `${currentScale} ${currentScale} ${currentScale}`;
+}
+
 async function generateRoomDesign(style) {
   const res = await fetch("/api/generate-room", {
     method: "POST",
@@ -354,4 +376,62 @@ function showAIProducts(list) {
       </div>
     `;
   });
+}
+
+function openAR(productId) {
+  const product = PRODUCTS.find(p => p.id === productId);
+  if (!product) return;
+
+  const viewer = document.getElementById("mainModelViewer");
+  const loader = document.getElementById("modelLoader");
+
+  // 🔥 RESET SCALE (IMPORTANT)
+  currentScale = 1;
+  viewer.scale = "1 1 1";
+
+  // 🔥 SHOW LOADER
+  loader.style.display = "flex";
+
+  // 🔥 LOAD MODEL
+  viewer.src = product.model;
+
+  // 🔥 MODEL LOADED
+  viewer.addEventListener("load", () => {
+    loader.style.display = "none";
+
+    document.getElementById("screenshotBtn").style.display = "block";
+
+    showToast("3D Model Ready 🚀");
+  }, { once: true });
+
+  // 🔥 SHOW VIEWER
+  document.getElementById("arModelWrap").style.display = "block";
+  document.getElementById("arPlaceholder").style.display = "none";
+
+  // 🔥 UPDATE INFO PANEL
+  document.getElementById("arSelectedInfo").innerHTML = `
+    <h4>${product.name}</h4>
+    <p>₹${product.price}</p>
+    <p style="font-size:12px;color:#aaa;">Tap AR to place in your room</p>
+  `;
+  document.getElementById("ar-viewer").scrollIntoView({
+  behavior: "smooth"
+});
+}
+function launchAR() {
+  const viewer = document.getElementById("mainModelViewer");
+
+  if (!viewer.src) {
+    showToast("Select a product first");
+    return;
+  }
+
+  viewer.activateAR();
+}
+function rotateModel(deg) {
+  const viewer = document.getElementById("mainModelViewer");
+  const current = viewer.getAttribute("camera-orbit") || "0deg 75deg 2.5m";
+
+  const angle = parseInt(current);
+  viewer.setAttribute("camera-orbit", `${angle + deg}deg 75deg 2.5m`);
 }

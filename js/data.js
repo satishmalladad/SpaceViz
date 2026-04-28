@@ -15,7 +15,7 @@ const PRODUCTS = [
     style: "modern",
     color: "white",
     width: 180,
-    model: "https://modelviewer.dev/shared-assets/models/Chair.glb"
+    model: "models/sofa.glb"
   },
   {
     id: 2,
