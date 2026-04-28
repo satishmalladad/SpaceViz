@@ -130,8 +130,11 @@ function viewInAR(productId) {
   modelWrap.style.display = 'block';
 
   // Set model source
-  viewer.src = product.model;
-  viewer.alt = product.name;
+  viewer.removeAttribute('src');
+  setTimeout(() => {
+    viewer.setAttribute('src', product.model);
+    viewer.alt = product.name;
+  }, 100);
 
   // Show info panel
   updateARInfoPanel(product);
