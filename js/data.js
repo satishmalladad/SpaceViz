@@ -1,7 +1,6 @@
 // ============================================================
 // ROOMVERSE AI — PRODUCT DATA
 // Using real .glb models from Google Model Viewer samples
-// and Sketchfab public assets
 // ============================================================
 
 const PRODUCTS = [
@@ -16,8 +15,7 @@ const PRODUCTS = [
     badge: "new",
     style: "modern",
     color: "white",
-    // Real GLB from Google Model Viewer demos
-    model: "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
+    model: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Assets/Models/SheenChair/glTF-Binary/SheenChair.glb",
     arSupported: true
   },
   {
@@ -30,7 +28,7 @@ const PRODUCTS = [
     badge: "sale",
     style: "luxury",
     color: "navy",
-    model: "https://modelviewer.dev/shared-assets/models/reflective-sphere.glb",
+    model: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Assets/Models/SheenChair/glTF-Binary/SheenChair.glb",
     arSupported: true
   },
   {
@@ -43,7 +41,7 @@ const PRODUCTS = [
     badge: null,
     style: "organic",
     color: "beige",
-    model: "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
+    model: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Assets/Models/SheenChair/glTF-Binary/SheenChair.glb",
     arSupported: true
   },
 
@@ -58,7 +56,7 @@ const PRODUCTS = [
     badge: "new",
     style: "modern",
     color: "walnut",
-    model: "https://modelviewer.dev/shared-assets/models/NeilArmstrong.glb",
+    model: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Assets/Models/WaterBottle/glTF-Binary/WaterBottle.glb",
     arSupported: true
   },
   {
@@ -71,7 +69,7 @@ const PRODUCTS = [
     badge: null,
     style: "luxury",
     color: "white",
-    model: "https://modelviewer.dev/shared-assets/models/reflective-sphere.glb",
+    model: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Assets/Models/WaterBottle/glTF-Binary/WaterBottle.glb",
     arSupported: true
   },
   {
@@ -84,7 +82,7 @@ const PRODUCTS = [
     badge: null,
     style: "organic",
     color: "wood",
-    model: "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
+    model: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Assets/Models/WaterBottle/glTF-Binary/WaterBottle.glb",
     arSupported: true
   },
 
@@ -99,7 +97,7 @@ const PRODUCTS = [
     badge: "new",
     style: "luxury",
     color: "gold",
-    model: "https://modelviewer.dev/shared-assets/models/reflective-sphere.glb",
+    model: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Assets/Models/ToyCar/glTF-Binary/ToyCar.glb",
     arSupported: true
   },
   {
@@ -112,7 +110,7 @@ const PRODUCTS = [
     badge: null,
     style: "industrial",
     color: "black",
-    model: "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
+    model: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Assets/Models/ToyCar/glTF-Binary/ToyCar.glb",
     arSupported: true
   },
   {
@@ -125,7 +123,7 @@ const PRODUCTS = [
     badge: null,
     style: "modern",
     color: "grey",
-    model: "https://modelviewer.dev/shared-assets/models/NeilArmstrong.glb",
+    model: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Assets/Models/ToyCar/glTF-Binary/ToyCar.glb",
     arSupported: true
   },
 
@@ -140,7 +138,7 @@ const PRODUCTS = [
     badge: "new",
     style: "organic",
     color: "green",
-    model: "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
+    model: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Assets/Models/Avocado/glTF-Binary/Avocado.glb",
     arSupported: true
   },
   {
@@ -153,7 +151,7 @@ const PRODUCTS = [
     badge: null,
     style: "modern",
     color: "green",
-    model: "https://modelviewer.dev/shared-assets/models/NeilArmstrong.glb",
+    model: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Assets/Models/Avocado/glTF-Binary/Avocado.glb",
     arSupported: true
   },
   {
@@ -166,7 +164,7 @@ const PRODUCTS = [
     badge: null,
     style: "luxury",
     color: "white",
-    model: "https://modelviewer.dev/shared-assets/models/reflective-sphere.glb",
+    model: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Assets/Models/Avocado/glTF-Binary/Avocado.glb",
     arSupported: true
   },
 
@@ -181,7 +179,7 @@ const PRODUCTS = [
     badge: "new",
     style: "organic",
     color: "beige",
-    model: "https://modelviewer.dev/shared-assets/models/Astronaut.glb",
+    model: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Assets/Models/SheenChair/glTF-Binary/SheenChair.glb",
     arSupported: true
   },
   {
@@ -194,7 +192,7 @@ const PRODUCTS = [
     badge: "sale",
     style: "modern",
     color: "cream",
-    model: "https://modelviewer.dev/shared-assets/models/NeilArmstrong.glb",
+    model: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Assets/Models/SheenChair/glTF-Binary/SheenChair.glb",
     arSupported: true
   },
   {
@@ -207,14 +205,13 @@ const PRODUCTS = [
     badge: null,
     style: "modern",
     color: "oak",
-    model: "https://modelviewer.dev/shared-assets/models/reflective-sphere.glb",
+    model: "https://modelviewer.dev/shared-assets/models/glTF-Sample-Assets/Models/WaterBottle/glTF-Binary/WaterBottle.glb",
     arSupported: true
   }
 ];
 
 // ============================================================
 // AI STYLE PROFILES
-// Simulates style detection + recommendation engine
 // ============================================================
 
 const AI_PROFILES = [
@@ -252,7 +249,7 @@ const AI_PROFILES = [
   }
 ];
 
-// Rotating AI analysis messages (simulates streaming output)
+// Rotating AI analysis messages
 const AI_MESSAGES = [
   "Analyzing your room dimensions and lighting conditions...",
   "Cross-referencing 500+ furniture pieces for style compatibility...",
