@@ -91,6 +91,12 @@ function openAR(productId) {
     showToast("✅ Model ready — tap AR to place!");
   }, { once: true });
 
+  // Handle load errors
+  viewer.addEventListener("error", () => {
+    if (loader) loader.style.display = "none";
+    showToast("❌ Failed to load 3D model");
+  }, { once: true });
+
   // Update info panel
   const info = document.getElementById("arSelectedInfo");
   if (info) {
