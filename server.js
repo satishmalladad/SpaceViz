@@ -97,7 +97,7 @@ app.post("/api/generate-room", async (req, res) => {
 });
 
 // ── CATCH ALL → serve index.html ─────────────────────────
-app.get("*", (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 

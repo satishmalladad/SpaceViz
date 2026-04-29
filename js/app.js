@@ -106,7 +106,12 @@ function launchAR() {
   if (viewer.canActivateAR) {
     viewer.activateAR();
   } else {
-    showToast("📱 Open on mobile for AR!");
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      try { viewer.activateAR(); } catch (e) { showToast("AR not supported on this browser."); }
+    } else {
+      showToast("📱 Open on mobile for AR!");
+    }
   }
 }
 
