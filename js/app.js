@@ -80,11 +80,8 @@ function openAR(productId) {
   if (placeholder)  placeholder.style.display = "none";
   if (loader)       loader.style.display = "flex";
 
-  // Force reload — remove src first, then set after short delay
-  viewer.removeAttribute("src");
-  setTimeout(() => {
-    viewer.setAttribute("src", product.model);
-  }, 200);
+  // Update model source directly
+  viewer.src = product.model;
 
   // Hide loader when loaded
   viewer.addEventListener("load", () => {
@@ -118,12 +115,12 @@ function openAR(productId) {
 // ── LAUNCH AR (camera) ────────────────────────────────────
 function launchAR() {
   const viewer = document.getElementById("mainModelViewer");
-  if (!viewer || !viewer.getAttribute("src")) {
+  if (!viewer || !viewer.src) {
     showToast("Select a product first!"); return;
   }
-  if (viewer.canActivateAR) {
+  try {
     viewer.activateAR();
-  } else {
+  } catch (e) {
     showToast("📱 Open on Android/iOS for live AR!");
   }
 }

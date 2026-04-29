@@ -3,7 +3,7 @@
 // ============================================================
 
 const PRODUCTS = [
-  { id: 1, name: "Nordic Cloud Sofa", category: "sofa", price: 4299, emoji: "🛋️", desc: "Minimalist 3-seater with Scandinavian oak legs.", badge: "new", style: "modern", color: "white", width: 180, model: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
+  { id: 1, name: "Nordic Cloud Sofa", category: "sofa", price: 4299, emoji: "🛋️", desc: "Minimalist 3-seater with Scandinavian oak legs.", badge: "new", style: "modern", color: "white", width: 180, model: "https://modelviewer.dev/shared-assets/models/Chair.glb" },
   { id: 2, name: "Velvet Luxe Sectional", category: "sofa", price: 8749, emoji: "🛋️", desc: "Luxury velvet sectional.", badge: "sale", style: "luxury", color: "navy", width: 220, model: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
   { id: 3, name: "Terra Linen Loveseat", category: "sofa", price: 2899, emoji: "🪑", desc: "Organic linen loveseat.", badge: null, style: "organic", color: "beige", width: 150, model: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
   { id: 4, name: "Walnut Studio Desk", category: "table", price: 1899, emoji: "🪵", desc: "Modern walnut desk.", badge: "new", style: "modern", color: "brown", width: 140, model: "https://modelviewer.dev/shared-assets/models/Astronaut.glb" },
