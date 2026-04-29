@@ -377,46 +377,49 @@ function showAIProducts(list) {
     `;
   });
 }
-
 function openAR(productId) {
   const product = PRODUCTS.find(p => p.id === productId);
   if (!product) return;
 
+  state.selectedProduct = product;
+
   const viewer = document.getElementById("mainModelViewer");
   const loader = document.getElementById("modelLoader");
 
-  // 🔥 RESET SCALE (IMPORTANT)
+  // Reset
   currentScale = 1;
-  viewer.scale = "1 1 1";
 
-  // 🔥 SHOW LOADER
-  loader.style.display = "flex";
+  // Show loader
+  if (loader) loader.style.display = "flex";
 
-  // 🔥 LOAD MODEL
-  viewer.src = product.model;
-
-  // 🔥 MODEL LOADED
-  viewer.addEventListener("load", () => {
-    loader.style.display = "none";
-
-    document.getElementById("screenshotBtn").style.display = "block";
-
-    showToast("3D Model Ready 🚀");
-  }, { once: true });
-
-  // 🔥 SHOW VIEWER
+  // Show viewer panel
   document.getElementById("arModelWrap").style.display = "block";
   document.getElementById("arPlaceholder").style.display = "none";
 
-  // 🔥 UPDATE INFO PANEL
+  // KEY FIX: remove src first, then set after short delay
+  viewer.removeAttribute("src");
+  setTimeout(() => {
+    viewer.setAttribute("src", product.model);
+  }, 150);
+
+  // Hide loader when model loads
+  viewer.addEventListener("load", () => {
+    if (loader) loader.style.display = "none";
+    document.getElementById("screenshotBtn").style.display = "block";
+    showToast("3D Model Ready 🚀");
+  }, { once: true });
+
+  // Update info panel
   document.getElementById("arSelectedInfo").innerHTML = `
     <h4>${product.name}</h4>
-    <p>₹${product.price}</p>
-    <p style="font-size:12px;color:#aaa;">Tap AR to place in your room</p>
+    <p style="color:#d4a843;font-size:1rem;font-weight:600;">₹${product.price}</p>
+    <p style="font-size:12px;color:#aaa;margin-top:4px;">Tap AR button to place in your room</p>
   `;
-  document.getElementById("ar-viewer").scrollIntoView({
-  behavior: "smooth"
-});
+
+  // Scroll to AR section
+  document.getElementById("ar-viewer").scrollIntoView({ behavior: "smooth" });
+
+  showToast(`Loading ${product.name}...`);
 }
 function launchAR() {
   const viewer = document.getElementById("mainModelViewer");
